@@ -1,11 +1,11 @@
-USE [eReports_Prod]
+USE [Reports]
 GO
-/****** Object:  StoredProcedure [ProCareRx_PBMOpsRecurring].[jsp_UserAccessSummary]    Script Date: 10/15/2021 11:55:44 AM ******/
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [ProCareRx_PBMOpsRecurring].[jsp_UserAccessSummary] 
+ALTER PROCEDURE [jsp_UserAccessSummary] 
 			 @pClientID     INT
 		    , @pEmployeeType VARCHAR(15)
 		    , @pEmployedBy   VARCHAR(30)
@@ -138,7 +138,7 @@ Store variables in table so I can filter the later query in an inner join instea
 							  END
 							, TRIM(grp.WorkGroupName)) AS                                     RowNo_spUserAccessSum
 				 FROM   
-					 [SQL-RPT-03].PRXDW_Prod.dbo.APPUSER AS au
+					 [SQLSERVER].dbo.APPUSER AS au
 					 INNER JOIN @mytable AS m
 						 ON
 						    au.EmployeeTypeID = COALESCE(m.emptyp, au.EmployeeTypeID)
@@ -158,14 +158,14 @@ Store variables in table so I can filter the later query in an inner join instea
 								   AND
 									  au.trmdate < GETDATE())
 							    OR (@vTerminate LIKE '%ALL%'))
-					 LEFT JOIN [SQL-RPT-03].PRXDW_Prod.dbo.APPUSERWORKGROUP AS wgrp
+					 LEFT JOIN [SQL].PRXDW_Prod.dbo.APPUSERWORKGROUP AS wgrp
 						 ON
 						    au.appuserid = wgrp.appuserid
 						    AND
 							   wgrp.IsGranted = 1
 						    AND
 							   au.ClientID = wgrp.ClientID
-					 LEFT JOIN [SQL-RPT-03].PRXDW_Prod.dbo.WORKGROUP AS grp
+					 LEFT JOIN [SQL].PRXDW_Prod.dbo.WORKGROUP AS grp
 						 ON
 						    wgrp.workgroupid = grp.workgroupid
 						    AND
