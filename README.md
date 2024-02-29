@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @ivanusma70
 - 👀 I’m interested in everything and nothing
-- 🌱 I’m currently learning Looker
+- 🌱 I’m currently studying for AZ-104
 - 💞️ I’m looking to collaborate on fixing world issues
 - 📫 How to reach me .... here
 
